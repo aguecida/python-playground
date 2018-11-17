@@ -16,7 +16,10 @@ def game():
 
     while True:
         player_move()
+        end_players_turn()
+        print_board()
         if is_game_over():
+            print('\nGAME OVER!')
             break
 
 
@@ -32,6 +35,18 @@ def is_game_over():
             return False
     
     return True
+
+
+def end_players_turn():
+    '''
+    Changes the players turn.
+    '''
+    global players_turn
+
+    if players_turn == 1:
+        players_turn = 2
+    else:
+        players_turn = 1
 
 
 def player_move():
@@ -69,8 +84,10 @@ def player_pick_symbol():
             print('You entered an invalid symbol! Please select "x" or "o".')
             symbol = None
 
+    print('\n')
     print(f'Player 1 is {players["1"]}')
     print(f'Player 2 is {players["2"]}')
+    print('\n')
         
 
 def print_board_configuration():
@@ -92,13 +109,12 @@ def print_board_configuration():
     print('\n')
 
 
-def print_board(inputs):
+def print_board():
     '''
     Draws the current state of the board given player inputs.
-
-    Args:
-        inputs: Player inputs.
     '''
+    global inputs
+
     print('     |     |     ')
     print('  {}  |  {}  |  {}  '.format(inputs['7'], inputs['8'], inputs['9']))
     print('     |     |     ')
@@ -111,11 +127,5 @@ def print_board(inputs):
     print('  {}  |  {}  |  {}  '.format(inputs['1'], inputs['2'], inputs['3']))
     print('     |     |     ')
 
-
-
-#player_pick_symbol()
-#player_move()
-#print_board_configuration()
-#print_board(inputs)
 
 game()
