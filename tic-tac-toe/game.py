@@ -2,11 +2,32 @@ inputs = { '1': ' ',  '2': ' ', '3': ' ', '4': ' ', '5': ' ', '6': ' ', '7': ' '
 
 players = { '1': '', '2': '' }
 
+players_turn = 1
+
+
+def player_move():
+    '''
+    Takes the players move as an input and updates the board accordingly
+    '''
+    move = None
+    symbol = players[str(players_turn)]
+
+    while move == None:
+        move = input(f'Player {players_turn}, enter your move (1-9): ')
+        if int(move) >= 1 and int(move) <= 9:
+            inputs[move] = symbol
+        else:
+            print('You entered an invalid move! Please select a number between 1 and 9.')
+            move = None
+
 
 def player_pick_symbol():
-    symbol = ''
+    '''
+    Takes a player's input to determine which players will use which symbols.
+    '''
+    symbol = None
 
-    while symbol == '':
+    while symbol == None:
         symbol = input('Player 1 select your symbol (x/o): ')
 
         if symbol == 'x':
@@ -16,14 +37,17 @@ def player_pick_symbol():
             players['1'] = 'o'
             players['2'] = 'x'
         else:
-            print('You entered an invalid symbol! Please select "x" or "o"')
-            symbol = ''
+            print('You entered an invalid symbol! Please select "x" or "o".')
+            symbol = None
 
     print(f'Player 1 is {players["1"]}')
     print(f'Player 2 is {players["2"]}')
         
 
 def print_board_configuration():
+    '''
+    Draws the game board configuration.
+    '''
     print('     |     |     ')
     print('  7  |  8  |  9  ')
     print('     |     |     ')
@@ -36,7 +60,14 @@ def print_board_configuration():
     print('  1  |  2  |  3  ')
     print('     |     |     ')
 
+
 def print_board(inputs):
+    '''
+    Draws the current state of the board given player inputs.
+
+    Args:
+        inputs: Player inputs.
+    '''
     print('     |     |     ')
     print('  {}  |  {}  |  {}  '.format(inputs['7'], inputs['8'], inputs['9']))
     print('     |     |     ')
@@ -49,7 +80,9 @@ def print_board(inputs):
     print('  {}  |  {}  |  {}  '.format(inputs['1'], inputs['2'], inputs['3']))
     print('     |     |     ')
 
+
 player_pick_symbol()
+player_move()
 #print_board_configuration()
 #print_board(inputs)
 
