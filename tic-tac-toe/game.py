@@ -1,13 +1,12 @@
 inputs = { '1': ' ',  '2': ' ', '3': ' ', '4': ' ', '5': ' ', '6': ' ', '7': ' ', '8': ' ', '9': ' ' }
-
 players = { '1': '', '2': '' }
-
 players_turn = 1
-
-game_over = False
 
 
 def game():
+    '''
+    The main game entry point
+    '''
     print('Welcome to the game of Tic-Tac-Toe!\n')
 
     # Setup game
@@ -17,26 +16,48 @@ def game():
     # Main game loop
     while True:
         player_move()
-        end_players_turn()
         print_board()
+        status = get_game_status()
 
-        if is_game_over():
-            print('\nGAME OVER!')
+        if status['gameover']:
+            if status['winner'] in [1,2]:
+                print(f"\nGAME OVER! Player {status['winner']} wins!")
+            else:
+                print("\nGAME OVER! It's a tie!")
             break
 
+        end_players_turn()
 
-def is_game_over():
+
+def get_game_status():
     '''
     Checks if the game is over and if there is a winner.
 
     Returns:
-        A boolean representing whether or not the game is over.
+        gameover: A boolean specifying whether or not the game is over.
+        winner: The number of the winning player, or "None" if the game is a tie.
     '''
+    if check_horizontal() or check_vertical() or check_diagonal():
+        return { 'gameover': True, 'winner': players_turn }
+
+    # Check for full board
     for value in inputs.values():
         if value != 'x' and value != 'o':
-            return False
+            return { 'gameover': False, 'winner': None }
     
-    return True
+    return { 'gameover': True, 'winner': None }
+
+
+def check_horizontal():
+    return (inputs['1'] == inputs['2'] == inputs['3'] != ' ') or (inputs['4'] == inputs['5'] == inputs['6'] != ' ') or (inputs['7'] == inputs['8'] == inputs['9'] != ' ')
+
+
+def check_vertical():
+    return (inputs['1'] == inputs['4'] == inputs['7'] != ' ') or (inputs['2'] == inputs['5'] == inputs['8'] != ' ') or (inputs['3'] == inputs['6'] == inputs['9'] != ' ')
+
+
+def check_diagonal():
+    return (inputs['1'] == inputs['5'] == inputs['9'] != ' ') or (inputs['3'] == inputs['5'] == inputs['7'] != ' ')
 
 
 def end_players_turn():
