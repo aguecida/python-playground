@@ -49,14 +49,29 @@ def get_game_status():
 
 
 def check_horizontal():
+    '''
+    Checks for a horizontal winner.
+
+    Returns: True if there is a winner, False otherwise.
+    '''
     return (inputs['1'] == inputs['2'] == inputs['3'] != ' ') or (inputs['4'] == inputs['5'] == inputs['6'] != ' ') or (inputs['7'] == inputs['8'] == inputs['9'] != ' ')
 
 
 def check_vertical():
+    '''
+    Checks for a vertical winner.
+
+    Returns: True if there is a winner, False otherwise.
+    '''
     return (inputs['1'] == inputs['4'] == inputs['7'] != ' ') or (inputs['2'] == inputs['5'] == inputs['8'] != ' ') or (inputs['3'] == inputs['6'] == inputs['9'] != ' ')
 
 
 def check_diagonal():
+    '''
+    Checks for a diagonal winner.
+
+    Returns: True if there is a winner, False otherwise.
+    '''
     return (inputs['1'] == inputs['5'] == inputs['9'] != ' ') or (inputs['3'] == inputs['5'] == inputs['7'] != ' ')
 
 
@@ -81,8 +96,12 @@ def player_move():
 
     while move == None:
         move = input(f'Player {players_turn}, enter your move (1-9): ')
-        if int(move) >= 1 and int(move) <= 9:
-            inputs[move] = symbol
+        if move in ['1','2','3','4','5','6','7','8','9']:
+            if inputs[move] in ['x', 'o']:
+                print('The space you selected is already occupied. Please pick an empty space.')
+                move = None
+            else:
+                inputs[move] = symbol
         else:
             print('You entered an invalid move! Please select a number between 1 and 9.')
             move = None
@@ -138,6 +157,7 @@ def print_board():
     '''
     global inputs
 
+    print('\n')
     print('     |     |     ')
     print('  {}  |  {}  |  {}  '.format(inputs['7'], inputs['8'], inputs['9']))
     print('     |     |     ')
@@ -149,6 +169,8 @@ def print_board():
     print('     |     |     ')
     print('  {}  |  {}  |  {}  '.format(inputs['1'], inputs['2'], inputs['3']))
     print('     |     |     ')
+    print('\n')
 
 
+# Start the game
 game()
