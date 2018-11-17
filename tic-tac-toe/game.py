@@ -4,6 +4,35 @@ players = { '1': '', '2': '' }
 
 players_turn = 1
 
+game_over = False
+
+
+def game():
+    print('Welcome to the game of Tic-Tac-Toe!\n')
+
+    print_board_configuration()
+
+    player_pick_symbol()
+
+    while True:
+        player_move()
+        if is_game_over():
+            break
+
+
+def is_game_over():
+    '''
+    Checks if the game is over and if there is a winner.
+
+    Returns:
+        A boolean representing whether or not the game is over.
+    '''
+    for value in inputs.values():
+        if value != 'x' and value != 'o':
+            return False
+    
+    return True
+
 
 def player_move():
     '''
@@ -48,6 +77,7 @@ def print_board_configuration():
     '''
     Draws the game board configuration.
     '''
+    print('BOARD CONFIGURATION:\n')
     print('     |     |     ')
     print('  7  |  8  |  9  ')
     print('     |     |     ')
@@ -59,6 +89,7 @@ def print_board_configuration():
     print('     |     |     ')
     print('  1  |  2  |  3  ')
     print('     |     |     ')
+    print('\n')
 
 
 def print_board(inputs):
@@ -81,8 +112,10 @@ def print_board(inputs):
     print('     |     |     ')
 
 
-player_pick_symbol()
-player_move()
+
+#player_pick_symbol()
+#player_move()
 #print_board_configuration()
 #print_board(inputs)
 
+game()
