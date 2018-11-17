@@ -10,14 +10,16 @@ game_over = False
 def game():
     print('Welcome to the game of Tic-Tac-Toe!\n')
 
+    # Setup game
     print_board_configuration()
-
     player_pick_symbol()
 
+    # Main game loop
     while True:
         player_move()
         end_players_turn()
         print_board()
+
         if is_game_over():
             print('\nGAME OVER!')
             break
