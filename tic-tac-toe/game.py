@@ -3,7 +3,7 @@ players = { '1': '', '2': '' }
 players_turn = 1
 
 
-def game():
+def start_game():
     '''
     The main game entry point
     '''
@@ -173,4 +173,5 @@ def print_board():
 
 
 # Start the game
-game()
+if __name__ == '__main__':
+    start_game()
