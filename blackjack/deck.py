@@ -20,7 +20,14 @@ class Deck():
         self.cards.extend([ Card(10, Suit.DIAMOND), Card(10, Suit.DIAMOND), Card(10, Suit.DIAMOND) ])
 
     def __len__(self):
+        ''' Gets the number of cards in the deck '''
         return len(self.cards)
 
     def shuffle(self):
+        ''' Shuffles the deck of cards '''
+        print('Shuffling deck...')
         shuffle(self.cards)
+
+    def deal_card(self):
+        ''' Gets the next card off the top of the deck '''
+        return self.cards.pop()
