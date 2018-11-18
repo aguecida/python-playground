@@ -4,6 +4,7 @@ from card import Card
 from suit import Suit
 
 class Deck():
+
     cards = []
 
     def __init__(self):
@@ -25,9 +26,11 @@ class Deck():
 
     def shuffle(self):
         ''' Shuffles the deck of cards '''
-        print('Shuffling deck...')
+        print('\nShuffling deck...')
         shuffle(self.cards)
 
-    def deal_card(self):
+    def deal_card(self, faceup = True):
         ''' Gets the next card off the top of the deck '''
-        return self.cards.pop()
+        card = self.cards.pop()
+        card.faceup = faceup
+        return card
