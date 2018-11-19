@@ -78,7 +78,6 @@ if __name__ == '__main__':
             break
 
     dealer.reveal_cards()
-
     display_hands(player, dealer)
 
     if dealer.total() >= player.total() and not dealer.is_bust():
