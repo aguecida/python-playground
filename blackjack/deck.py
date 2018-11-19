@@ -9,16 +9,16 @@ class Deck():
 
     def __init__(self):
         # Generate number cards
-        self.cards.extend([ Card(i, Suit.SPADE) for i in range(1, 11) ])
-        self.cards.extend([ Card(i, Suit.CLUB) for i in range(1, 11) ])
-        self.cards.extend([ Card(i, Suit.HEART) for i in range(1, 11) ])
-        self.cards.extend([ Card(i, Suit.DIAMOND) for i in range(1, 11) ])
+        self.cards.extend([ Card(i, Suit.SPADES) for i in range(1, 11) ])
+        self.cards.extend([ Card(i, Suit.CLUBS) for i in range(1, 11) ])
+        self.cards.extend([ Card(i, Suit.HEARTS) for i in range(1, 11) ])
+        self.cards.extend([ Card(i, Suit.DIAMONDS) for i in range(1, 11) ])
 
         # Generate face cards
-        self.cards.extend([ Card(10, Suit.SPADE), Card(10, Suit.SPADE), Card(10, Suit.SPADE) ])
-        self.cards.extend([ Card(10, Suit.CLUB), Card(10, Suit.CLUB), Card(10, Suit.CLUB) ])
-        self.cards.extend([ Card(10, Suit.HEART), Card(10, Suit.HEART), Card(10, Suit.HEART) ])
-        self.cards.extend([ Card(10, Suit.DIAMOND), Card(10, Suit.DIAMOND), Card(10, Suit.DIAMOND) ])
+        self.cards.extend([ Card(10, Suit.SPADES), Card(10, Suit.SPADES), Card(10, Suit.SPADES) ])
+        self.cards.extend([ Card(10, Suit.CLUBS), Card(10, Suit.CLUBS), Card(10, Suit.CLUBS) ])
+        self.cards.extend([ Card(10, Suit.HEARTS), Card(10, Suit.HEARTS), Card(10, Suit.HEARTS) ])
+        self.cards.extend([ Card(10, Suit.DIAMONDS), Card(10, Suit.DIAMONDS), Card(10, Suit.DIAMONDS) ])
 
     def __len__(self):
         ''' Gets the number of cards in the deck '''

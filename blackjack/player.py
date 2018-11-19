@@ -8,7 +8,7 @@ class Player():
         print(f"\n{self.name}'s hand:\n")
         for card in self.cards:
             if card.faceup:
-                print(f"{card.value} of {card.suit}")
+                print(f"{card.value} of {card.suit.name}")
             else:
                 print("One face down card")
 

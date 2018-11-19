@@ -62,7 +62,7 @@ if __name__ == '__main__':
             break
 
     if player.is_bust():
-        print('\nYou went over 21. Dealer wins.')
+        print('\nYou busted. Dealer wins.')
         quit()
 
     if player.has_blackjack():
