@@ -15,7 +15,13 @@ class Player():
     def total(self):
         total = 0
         for card in self.cards:
-            total += card.value
+            if card.value == 1:
+                if total + 11 > 21:
+                    total += 1
+                else:
+                    total += 11
+            else:
+                total += card.value
         return total
 
     def is_bust(self):
