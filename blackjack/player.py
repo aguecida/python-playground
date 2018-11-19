@@ -26,3 +26,7 @@ class Player():
 
     def add_card_to_hand(self, card):
         self.cards.append(card)
+
+    def reveal_cards(self):
+        for card in self.cards:
+            card.faceup = True

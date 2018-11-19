@@ -42,6 +42,7 @@ def get_player_command():
             print('\nSorry, I did not recognize that command. Please try again.')
 
 if __name__ == '__main__':
+    # Setup the game
     player, dealer = create_players()
     deck = new_deck()
     deal_cards(deck, player, dealer)
@@ -68,4 +69,19 @@ if __name__ == '__main__':
         print('\nYou got 21! You win!')
         quit()
 
+    # Dealer's turn
+    while True:
+        if dealer.total() < 17 :
+            card = deck.deal_card()
+            dealer.add_card_to_hand(card)
+        else:
+            break
 
+    dealer.reveal_cards()
+
+    display_hands(player, dealer)
+
+    if dealer.total() >= player.total() and not dealer.is_bust():
+        print('\nGame over. Dealer wins.')
+    else:
+        print('\nGame over. You won!')
