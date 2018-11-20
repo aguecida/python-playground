@@ -1,27 +1,21 @@
 from random import shuffle
 
 from card import Card
-from suit import Suit
+from constants.rank import Rank
+from constants.suit import Suit
 
-class Deck():
-
-    cards = []
+class Deck:
 
     def __init__(self):
-        # Generate number cards
-        self.cards.extend([ Card(i, Suit.SPADES) for i in range(1, 11) ])
-        self.cards.extend([ Card(i, Suit.CLUBS) for i in range(1, 11) ])
-        self.cards.extend([ Card(i, Suit.HEARTS) for i in range(1, 11) ])
-        self.cards.extend([ Card(i, Suit.DIAMONDS) for i in range(1, 11) ])
+        self.cards = []
 
-        # Generate face cards
-        self.cards.extend([ Card(10, Suit.SPADES), Card(10, Suit.SPADES), Card(10, Suit.SPADES) ])
-        self.cards.extend([ Card(10, Suit.CLUBS), Card(10, Suit.CLUBS), Card(10, Suit.CLUBS) ])
-        self.cards.extend([ Card(10, Suit.HEARTS), Card(10, Suit.HEARTS), Card(10, Suit.HEARTS) ])
-        self.cards.extend([ Card(10, Suit.DIAMONDS), Card(10, Suit.DIAMONDS), Card(10, Suit.DIAMONDS) ])
+        # Generate new deck of 52 cards
+        for rank in Rank:
+            for suit in Suit:
+                self.cards.append(Card(rank, suit))
 
     def __len__(self):
-        ''' Gets the number of cards in the deck '''
+        ''' Gets the number of cards left in the deck '''
         return len(self.cards)
 
     def shuffle(self):

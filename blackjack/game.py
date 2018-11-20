@@ -1,3 +1,5 @@
+from colorama import init, Fore
+
 from deck import Deck
 from player import Player
 
@@ -42,6 +44,9 @@ def get_player_command():
             print('\nSorry, I did not recognize that command. Please try again.')
 
 if __name__ == '__main__':
+    # Initialize colorama
+    init()
+
     # Setup the game
     player, dealer = create_players()
     deck = new_deck()
@@ -62,16 +67,20 @@ if __name__ == '__main__':
             break
 
     if player.is_bust():
-        print('\nYou busted. Dealer wins.')
+        dealer.reveal_cards()
+        display_hands(player, dealer)
+        print(Fore.RED + '\nYou busted. Dealer wins.')
         quit()
 
     if player.has_blackjack():
-        print('\nYou got 21! You win!')
+        dealer.reveal_cards()
+        display_hands(player, dealer)
+        print(Fore.GREEN + '\nYou got Blackjack! You win!')
         quit()
 
     # Dealer's turn
     while True:
-        if dealer.total() < 17 :
+        if dealer.hand_total() < 17:
             card = deck.deal_card()
             dealer.add_card_to_hand(card)
         else:
@@ -80,7 +89,7 @@ if __name__ == '__main__':
     dealer.reveal_cards()
     display_hands(player, dealer)
 
-    if dealer.total() >= player.total() and not dealer.is_bust():
-        print('\nGame over. Dealer wins.')
+    if dealer.hand_total() >= player.hand_total() and not dealer.is_bust():
+        print(Fore.RED + '\nGame over. Dealer wins.')
     else:
-        print('\nGame over. You won!')
+        print(Fore.GREEN + '\nGame over. You win!')
