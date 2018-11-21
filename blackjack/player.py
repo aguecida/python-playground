@@ -49,3 +49,7 @@ class Player:
         ''' Turns all player cards face up '''
         for card in self.cards:
             card.faceup = True
+
+    def clean_hand(self):
+        ''' Empty the player's hand '''
+        self.cards = []

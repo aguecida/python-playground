@@ -1,4 +1,4 @@
-from colorama import init, Fore
+from colorama import init, Fore, Back, Style
 
 from deck import Deck
 from player import Player
@@ -43,53 +43,81 @@ def get_player_command():
         else:
             print('\nSorry, I did not recognize that command. Please try again.')
 
+def game_reset(player, dealer):
+    # Setup new deck
+    deck = Deck()
+    deck.shuffle()
+
+    # Setup new player hands
+    player.clean_hand()
+    dealer.clean_hand()
+    deal_cards(deck, player, dealer)
+    display_hands(player, dealer)
+
+    return deck
+
+def end_game():
+    while True:
+        restart = input('Play again (y/n)?: ')
+        if restart == 'y' or restart == 'n':
+            return restart == 'n'
+        else:
+            continue
+
 if __name__ == '__main__':
     # Initialize colorama
     init()
 
-    # Setup the game
+    game_over = False
     player, dealer = create_players()
-    deck = new_deck()
-    deal_cards(deck, player, dealer)
-    display_hands(player, dealer)
 
-    # Player's turn
-    while True:
-        player_command = get_player_command()
-        if player_command == 'hit':
-            card = deck.deal_card()
-            player.add_card_to_hand(card)
-            if player.is_bust() or player.has_blackjack():
+    while not game_over:
+        deck = game_reset(player, dealer)
+        
+        # Player's turn
+        while True:
+            player_command = get_player_command()
+            if player_command == 'hit':
+                card = deck.deal_card()
+                player.add_card_to_hand(card)
+                if player.is_bust() or player.has_blackjack():
+                    break
+                else:
+                    display_hands(player, dealer)
+            else: # Stay
                 break
+
+        if player.is_bust():
+            dealer.reveal_cards()
+            display_hands(player, dealer)
+            print(Fore.RED + '\nYou busted. Dealer wins.')
+            print(Style.RESET_ALL)
+            game_over = end_game()
+            continue
+
+        if player.has_blackjack():
+            dealer.reveal_cards()
+            display_hands(player, dealer)
+            print(Fore.GREEN + '\nYou got Blackjack! You win!')
+            print(Style.RESET_ALL)
+            game_over = end_game()
+            continue
+
+        # Dealer's turn
+        while True:
+            if dealer.hand_total() < 17:
+                card = deck.deal_card()
+                dealer.add_card_to_hand(card)
             else:
-                display_hands(player, dealer)
-        else: # Stay
-            break
+                break
 
-    if player.is_bust():
         dealer.reveal_cards()
         display_hands(player, dealer)
-        print(Fore.RED + '\nYou busted. Dealer wins.')
-        quit()
 
-    if player.has_blackjack():
-        dealer.reveal_cards()
-        display_hands(player, dealer)
-        print(Fore.GREEN + '\nYou got Blackjack! You win!')
-        quit()
-
-    # Dealer's turn
-    while True:
-        if dealer.hand_total() < 17:
-            card = deck.deal_card()
-            dealer.add_card_to_hand(card)
+        if dealer.hand_total() >= player.hand_total() and not dealer.is_bust():
+            print(Fore.RED + '\nGame over. Dealer wins.')
         else:
-            break
+            print(Fore.GREEN + '\nGame over. You win!')
 
-    dealer.reveal_cards()
-    display_hands(player, dealer)
-
-    if dealer.hand_total() >= player.hand_total() and not dealer.is_bust():
-        print(Fore.RED + '\nGame over. Dealer wins.')
-    else:
-        print(Fore.GREEN + '\nGame over. You win!')
+        print(Style.RESET_ALL)
+        game_over = end_game()
