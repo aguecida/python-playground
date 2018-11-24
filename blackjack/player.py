@@ -5,6 +5,7 @@ class Player:
     def __init__(self, name = 'Dealer'):
         self.cards = []
         self.name = name
+        self.aces = 0
 
     def __len__(self):
         return len(self.cards)
@@ -20,16 +21,12 @@ class Player:
         total = 0
 
         for card in self.cards:
-            # TODO: ACEs needs to be counted last
-            if card.rank == 'ACE':
-                # Treat ACE as 1 or 11
-                if total + 11 > 21:
-                    total += 1
-                else:
-                    total += 11
-            else:
-                rank_value = Rank[card.rank]
-                total += rank_value
+            rank_value = Rank[card.rank]
+            total += rank_value
+
+        for _ in range(0, self.aces):
+            if total > 21:
+                total -= 10
                 
         return total
 
@@ -45,6 +42,9 @@ class Player:
         ''' Adds a card to the player's current hand '''
         self.cards.append(card)
 
+        if card.rank == 'ACE':
+            self.aces += 1
+
     def reveal_cards(self):
         ''' Turns all player cards face up '''
         for card in self.cards:
@@ -53,3 +53,4 @@ class Player:
     def clean_hand(self):
         ''' Empty the player's hand '''
         self.cards = []
+        self.aces = 0
