@@ -1,4 +1,13 @@
 def bubble_sort(lst):
+    '''
+    Sorts a list of integers using the bubble sort algorithm.
+
+    Args:
+        lst: A list of integers.
+
+    Returns:
+        The sorted list.
+    '''
     list_length = len(lst)
     pass_num = 0
 
@@ -18,8 +27,10 @@ def bubble_sort(lst):
         if not swapped:
             break
 
+    return lst
+
 if __name__ == '__main__':
-    user_input = input('Enter comma separated list of integers to bubble sort: ')
+    user_input = input('Enter comma separated list of integers to sort: ')
 
     try:
         user_input = user_input.split(',')
@@ -28,6 +39,6 @@ if __name__ == '__main__':
         print('Received bad input, exiting...')
         quit()
     
-    print(f'Applying bubble sort to list: {user_input}')
+    print(f'\nApplying bubble sort to list: {user_input}')
 
     bubble_sort(user_input)

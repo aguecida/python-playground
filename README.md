@@ -1,3 +1,7 @@
+# algorithms
+
+Implementations of various searching and sorting algorithms.
+
 # blackjack
 
 A command line version of the game Blackjack.
