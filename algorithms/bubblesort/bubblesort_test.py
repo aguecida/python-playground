@@ -35,12 +35,5 @@ class BubbleSortTests(unittest.TestCase):
         self.assertEqual(lst, [-4,-2,1,6])
         self.assertEqual(iterations, 4)
 
-    def test_large_random_list(self):
-        lst = [ randint(1,100) for i in range(1000) ]
-        result = lst.copy()
-        result.sort()
-        bubble_sort(lst)
-        self.assertEqual(lst, result)
-
 if __name__ == '__main__':
     unittest.main()
